@@ -26,8 +26,8 @@ so after you save your specific dotfiles, you just need to copy them in your new
 
 # How Keep and track the dotfiles ?
 One of the best ways to store the dotfiles is using the **Git**, but managing your dotfiles using git is a little different that tracking your project's source code.  
-in the past and until recently, i was using an old method to store my dotfiles with git that think it was not too optimized. In this old method you have to create an `bare` repository and use the alias.  
-i don't want to explain this method here and my reason for that is that in my experience i found this method is not too optimized with **shell ta autocompletion** and at most of the times i had problem wit that, but if you interested in, you can find it with the **_"bare repository and alias method"_** in links that i will put below.
+in the past and until recently, i was using an old method to store my dotfiles with git that think it was not too optimized. In this old method you have to create a `bare` repository and use the alias.  
+i don't want to explain this method here and my reason for that is that in my experience i found this method is not too optimized with **shell ta autocompletion** and at most of the times i had problem with that, but if you interested in, you can find it with the **_"bare repository and alias method"_** in links that i will put below.
 
 
 ## Track your dotfiles using the stow
