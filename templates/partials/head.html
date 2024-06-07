@@ -6,6 +6,11 @@
     content="width=device-width, initial-scale=1, shrink-to-fit=no"
   />
 
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="upgrade-insecure-requests"
+  />
+
   <!-- Title -->
   <title>
     {% if page.title %}{{ page.title }} - {{ config.title }}{% else %}{{
@@ -33,19 +38,13 @@
   <!--   {% set description = page.summary %} -->
   <!-- {% endif %} -->
 
-  {% if page.extra.author %}
-    {% set author = page.extra.author %}
-  {% else %}
-    {% set author = config.author %}
-  {% endif %}
+  {% if page.extra.author %} {% set author = page.extra.author %} {% else %} {%
+  set author = config.author %} {% endif %}
   <meta
     name="description"
     content="{{ page.description | default(value=page.title) | safe }}"
   />
-  <meta
-    name="author"
-    content="{{ author | default(value=page.title) }}"
-  />
+  <meta name="author" content="{{ author | default(value=page.title) }}" />
   {% else %}
   <meta
     name="description"
