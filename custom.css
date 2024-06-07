@@ -1,0 +1,14 @@
+
+.w-17 {
+  width: 5rem;
+}
+
+.all-posts {
+    font-weight: 350;
+    font-size: 1.3rem;
+}
+.flex-container {
+  display: flex;
+  flex-flow: row wrap;
+  /* justify-content: center; */
+}

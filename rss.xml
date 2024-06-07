@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title>Amir Aref&#x27;s Blog</title>
+      <link>https://amiraref.ir</link>
+      <description>a place to write something that i think would be useful.</description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://amiraref.ir/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Tue, 14 May 2024 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>Tracking dotfiles, What is it and Why ?</title>
+          <pubDate>Tue, 14 May 2024 00:00:00 +0000</pubDate>
+          <author>amiraref</author>
+          <link>https://amiraref.ir/blog/dotfiles/</link>
+          <guid>https://amiraref.ir/blog/dotfiles/</guid>
+          <description xml:base="https://amiraref.ir/blog/dotfiles/">&lt;h1 id=&quot;what-are-the-dotfiles&quot;&gt;What are the dotfiles ?&lt;&#x2F;h1&gt;
+&lt;p&gt;Hi, in this article I want to explain and talk about the &lt;strong&gt;dotfiles&lt;&#x2F;strong&gt;.
+The first question is what are the dotfiles ?
+It&#x27;s very clear, the files that their names starts with a dot &lt;code&gt;.&lt;&#x2F;code&gt; which (in most of operating systems) is a &lt;strong&gt;hidden&lt;&#x2F;strong&gt; file.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;why-the-dotfiles-are-important&quot;&gt;Why the dotfiles are important ?&lt;&#x2F;h1&gt;
+&lt;p&gt;If you are a user of a Unix-like operating system (like GNU&#x2F;LINUX distributions, macOS, etc), the dotfiles are too important for you.
+Most of the applications use their specific dotfile to store their configuration.
+For example have you ever used the &lt;strong&gt;vim&lt;&#x2F;strong&gt; editor? The vim editor loads it&#x27;s configuration from the &lt;code&gt;.vimrc&lt;&#x2F;code&gt; which is located in your home directory (i.e. &lt;code&gt;~&#x2F;.vimrc&lt;&#x2F;code&gt;).
+If you explore on your home directory and the &lt;code&gt;~&#x2F;.config&#x2F;&lt;&#x2F;code&gt; directory, you will probably see many dotfiles from different software (see hidden files with command : &lt;code&gt;ls -a&lt;&#x2F;code&gt;) such as &lt;code&gt;.bashrc&lt;&#x2F;code&gt;, &lt;code&gt;.zshrc&lt;&#x2F;code&gt;, &lt;code&gt;.gitconfig&lt;&#x2F;code&gt;, etc.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;benefits-of-tracking-the-dotfiles&quot;&gt;Benefits of Tracking the dotfiles&lt;&#x2F;h2&gt;
+&lt;p&gt;After some time that you have struggled with many of software configurations to make them customized for your likings (specially in Linux), you probably try to &lt;strong&gt;keep&lt;&#x2F;strong&gt; your dotfiles somewhere to use them in the future or to use on the other machines.
+So after you save your specific dotfiles, you just need to copy them in your new machine and enjoy working with the same configuration and customization that you have had on the other machine.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;how-keep-and-track-the-dotfiles&quot;&gt;How Keep and track the dotfiles ?&lt;&#x2F;h1&gt;
+&lt;p&gt;One of the best ways to store the dotfiles is using by &lt;strong&gt;Git&lt;&#x2F;strong&gt;, but managing your dotfiles using git is a little different that tracking your project&#x27;s source code.
+In the past and until recently, I was using an old method to store my dotfiles with git that was not too optimized. In this old method you have to create a &lt;code&gt;bare&lt;&#x2F;code&gt; repository and use the alias.
+I don&#x27;t want to explain this method here and my reason for that is that in my experience I found this method is not too optimized with &lt;strong&gt;shell ta autocompletion&lt;&#x2F;strong&gt;, and most of the times I had problems with that, but if you interested in that, you can find it with the &lt;strong&gt;&lt;em&gt;&amp;quot;bare repository and alias method&amp;quot;&lt;&#x2F;em&gt;&lt;&#x2F;strong&gt; in links that I will put below.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;track-your-dotfiles-using-the-stow&quot;&gt;Track your dotfiles using the stow&lt;&#x2F;h2&gt;
+&lt;p&gt;There is a useful program named &lt;strong&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.gnu.org&#x2F;software&#x2F;stow&#x2F;&quot;&gt;stow&lt;&#x2F;a&gt;&lt;&#x2F;strong&gt; which is a symlink farm manager. The stow has many usages but it can provide a structured approach to store your dotfiles.&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;first, make sure the &lt;strong&gt;stow&lt;&#x2F;strong&gt; is installed on your machine, in most of Linux distros it&#x27;s already installed, but if not, install it using your package manager&lt;&#x2F;li&gt;
+&lt;li&gt;then you should create a directory to store your dotfiles in your &lt;strong&gt;home directory&lt;&#x2F;strong&gt;, in this case we name it &lt;code&gt;.dotfiles&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;mkdir ~&lt;&#x2F;span&gt;&lt;span&gt;&#x2F;.dotfiles
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;cd &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;~&lt;&#x2F;span&gt;&lt;span&gt;&#x2F;.dotfiles
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ol start=&quot;3&quot;&gt;
+&lt;li&gt;next, you should create your dotfiles in subdirectory of this directory (or move them to it).
+Let&#x27;s imagine we have &lt;code&gt;~&#x2F;.vimrc&lt;&#x2F;code&gt; file in the home directory, you should move it to a new folder on &lt;code&gt;.dotfiles&lt;&#x2F;code&gt; directory :&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;mkdir&lt;&#x2F;span&gt;&lt;span&gt; vim
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;mv ~&lt;&#x2F;span&gt;&lt;span&gt;&#x2F;.vimrc &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;~&lt;&#x2F;span&gt;&lt;span&gt;&#x2F;.dotfiles&#x2F;vim&#x2F;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+ &lt;!----&gt;
+
+
+&lt;div
+  class=&quot;my-4 flex flex-col rounded-lg bg-[var(--admonition-bg)]&quot;
+  style=&quot;--admonition-bg: rgba(0, 191, 165, 0.1)&quot;
+&gt;
+  &lt;div class=&quot;flex items-center rounded-t-lg bg-[var(--admonition-bg)] p-1&quot;&gt;
+    &lt;div
+      class=&quot;mx-2 h-4 w-4 text-[0] [background:var(--url)_center_center_no-repeat] dark:invert&quot;
+      style=&quot;--url: url(.&#x2F;icons&#x2F;tip.svg)&quot;
+    &gt;
+      tip
+    &lt;&#x2F;div&gt;
+    &lt;span&gt;&lt;strong&gt;Tip&lt;&#x2F;strong&gt;&lt;&#x2F;span&gt;
+  &lt;&#x2F;div&gt;
+  &lt;div class=&quot;px-4&quot;&gt;&lt;p&gt;The name of subdirectory can be anything you want, but it&#x27;s better to use a related name to make the files structure more clear.&lt;&#x2F;p&gt;
+&lt;&#x2F;div&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;You should consider that the &lt;strong&gt;stow&lt;&#x2F;strong&gt; will follow the same folder structure that is placed in home directory.
+For example, the neovim&#x27;s config folder that is typically placed in &lt;code&gt;~&#x2F;.config&#x2F;nvim&#x2F;&lt;&#x2F;code&gt; would be like : &lt;code&gt;~&#x2F;.dotfiles&#x2F;nvim&#x2F;.config&#x2F;nvim&#x2F;&lt;&#x2F;code&gt;.
+Do the same thing for all of your dotfiles.&lt;&#x2F;p&gt;
+&lt;p&gt;The following is the structure of my &lt;code&gt;.dotfiles&lt;&#x2F;code&gt; directory (&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;AmirAref&#x2F;dotfiles&#x2F;&quot;&gt;my dotfiles repository&lt;&#x2F;a&gt;):&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;.dotfiles&#x2F;
+&lt;&#x2F;span&gt;&lt;span&gt;├── fish
+&lt;&#x2F;span&gt;&lt;span&gt;│   └── .config
+&lt;&#x2F;span&gt;&lt;span&gt;│       └── fish
+&lt;&#x2F;span&gt;&lt;span&gt;│           ├── config.fish
+&lt;&#x2F;span&gt;&lt;span&gt;├── git
+&lt;&#x2F;span&gt;&lt;span&gt;│   ├── .gitconfig
+&lt;&#x2F;span&gt;&lt;span&gt;├── kitty
+&lt;&#x2F;span&gt;&lt;span&gt;│   └── .config
+&lt;&#x2F;span&gt;&lt;span&gt;│       └── kitty
+&lt;&#x2F;span&gt;&lt;span&gt;│           └── kitty.conf
+&lt;&#x2F;span&gt;&lt;span&gt;├── nvim
+&lt;&#x2F;span&gt;&lt;span&gt;│   └── .config
+&lt;&#x2F;span&gt;&lt;span&gt;│       └── nvim
+&lt;&#x2F;span&gt;&lt;span&gt;│           ├── .gitignore
+&lt;&#x2F;span&gt;&lt;span&gt;│           ├── init.lua
+&lt;&#x2F;span&gt;&lt;span&gt;│           ├── lazy-lock.json
+&lt;&#x2F;span&gt;&lt;span&gt;│           ├── lua
+&lt;&#x2F;span&gt;&lt;span&gt;│           ├── .stylua.toml
+&lt;&#x2F;span&gt;&lt;span&gt;│           └── TODO.md
+&lt;&#x2F;span&gt;&lt;span&gt;├── tmux
+&lt;&#x2F;span&gt;&lt;span&gt;│   ├── .tmux
+&lt;&#x2F;span&gt;&lt;span&gt;│   │   └── plugins
+&lt;&#x2F;span&gt;&lt;span&gt;│   │       └── tpm
+&lt;&#x2F;span&gt;&lt;span&gt;│   └── .tmux.conf
+&lt;&#x2F;span&gt;&lt;span&gt;├── vim
+&lt;&#x2F;span&gt;&lt;span&gt;│   ├── .vim
+&lt;&#x2F;span&gt;&lt;span&gt;│   │   └── coc-settings.json
+&lt;&#x2F;span&gt;&lt;span&gt;│   └── .vimrc
+&lt;&#x2F;span&gt;&lt;span&gt;└── yt-dlp
+&lt;&#x2F;span&gt;&lt;span&gt;    └── .config
+&lt;&#x2F;span&gt;&lt;span&gt;        └── yt-dlp
+&lt;&#x2F;span&gt;&lt;span&gt;            └── config
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ol start=&quot;4&quot;&gt;
+&lt;li&gt;run the following command to make symlinks using stow (put your own folders&#x27; names) :&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;stow&lt;&#x2F;span&gt;&lt;span&gt; git vim nvim kitty
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Now if you go to your home directory, you&#x27;ll see the &lt;strong&gt;symlinks&lt;&#x2F;strong&gt; have been created :&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;➜&lt;&#x2F;span&gt;&lt;span&gt; ls&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -al&lt;&#x2F;span&gt;&lt;span&gt; .vimrc
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;20&lt;&#x2F;span&gt;&lt;span&gt; May  6 00:32 .vimrc -&amp;gt; .dotfiles&#x2F;vim&#x2F;.vimrc
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ol start=&quot;5&quot;&gt;
+&lt;li&gt;finally, initialize git in your &lt;code&gt;.dotfiles&lt;&#x2F;code&gt; folder, and then create a commit and push it to your online git repository :&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;cd &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;~&lt;&#x2F;span&gt;&lt;span&gt;&#x2F;.dotfiles&#x2F;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; init
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; commit&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -m &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Initial Commit&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; push origin master
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+ &lt;!----&gt;
+
+
+&lt;div
+  class=&quot;my-4 flex flex-col rounded-lg bg-[var(--admonition-bg)]&quot;
+  style=&quot;--admonition-bg: rgba(83, 211, 230, 0.1)&quot;
+&gt;
+  &lt;div class=&quot;flex items-center rounded-t-lg bg-[var(--admonition-bg)] p-1&quot;&gt;
+    &lt;div
+      class=&quot;mx-2 h-4 w-4 text-[0] [background:var(--url)_center_center_no-repeat] dark:invert&quot;
+      style=&quot;--url: url(.&#x2F;icons&#x2F;info.svg)&quot;
+    &gt;
+      info
+    &lt;&#x2F;div&gt;
+    &lt;span&gt;&lt;strong&gt;Note&lt;&#x2F;strong&gt;&lt;&#x2F;span&gt;
+  &lt;&#x2F;div&gt;
+  &lt;div class=&quot;px-4&quot;&gt;&lt;p&gt;If you want to delete the symlinks for a folder, just use the &lt;code&gt;stow -D folder_name&lt;&#x2F;code&gt; command in the &lt;code&gt;.dotfiles&lt;&#x2F;code&gt; directory.&lt;&#x2F;p&gt;
+&lt;&#x2F;div&gt;
+&lt;&#x2F;div&gt;
+&lt;br&gt;
+&lt;p&gt;Related links:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;wiki.archlinux.org&#x2F;title&#x2F;Dotfiles&quot;&gt;Dotfiles - Arch Wiki&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.gnu.org&#x2F;software&#x2F;stow&#x2F;&quot;&gt;Stow - Gnu&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;amiraref&#x2F;dotfiles&quot;&gt;My Dotfiles&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</description>
+      </item>
+    </channel>
+</rss>
