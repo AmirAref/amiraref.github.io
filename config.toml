@@ -111,6 +111,10 @@ url = "mailto:amiraref808@gmail.com"
 name = "rss"
 url = "$BASE_URL/rss.xml"
 
+[[extra.menu]]
+name = "Blog (Fa)"
+url = "$BASE_URL/blog/fa"
+
 # The top menu.
 [[extra.menu]]
 name = "Blog"
