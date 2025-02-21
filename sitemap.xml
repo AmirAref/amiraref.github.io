@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://amiraref.ir/</loc>
+    </url>
+    <url>
+        <loc>https://amiraref.ir/blog/</loc>
+    </url>
+    <url>
+        <loc>https://amiraref.ir/blog/dotfiles/</loc>
+        <lastmod>2024-05-14</lastmod>
+    </url>
+    <url>
+        <loc>https://amiraref.ir/blog/fa/</loc>
+    </url>
+    <url>
+        <loc>https://amiraref.ir/blog/page/1/</loc>
+    </url>
+    <url>
+        <loc>https://amiraref.ir/tags/</loc>
+    </url>
+    <url>
+        <loc>https://amiraref.ir/tags/linux/</loc>
+    </url>
+    <url>
+        <loc>https://amiraref.ir/tags/linux/page/1/</loc>
+    </url>
+    <url>
+        <loc>https://amiraref.ir/tags/unix/</loc>
+    </url>
+    <url>
+        <loc>https://amiraref.ir/tags/unix/page/1/</loc>
+    </url>
+</urlset>

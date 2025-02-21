@@ -1,0 +1,538 @@
+<!doctype html>
+<html class="not-ready lg:text-base" lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="upgrade-insecure-requests"
+  />
+
+  <!-- Title -->
+  <title>
+    Tracking dotfiles, What is it and Why ? - Amir Aref&#x27;s Blog
+  </title>
+
+  <!-- page cover preview -->
+  
+  <!---->
+  <meta
+    property="og:image"
+    content="https://amiraref.ir/images/dotfiles.png"
+  />
+  
+
+  <!-- Meta -->
+  <meta name="theme-color" />
+
+  <!-- Author -->
+  
+
+  <!--  -->
+  <!--    -->
+  <!--  -->
+
+    
+  <meta
+    name="description"
+    content="a beginner guide for keep and traking dotfiles"
+  />
+  <meta name="author" content="Amir Hasan Aref Asl" />
+  
+
+  <!-- CSS & JS -->
+  <link
+    rel="preload stylesheet"
+    as="style"
+    href="https://amiraref.ir/main.css"
+  />
+  <link 
+    rel="preload stylesheet"
+    as="style"
+    href="https://amiraref.ir/custom.css"
+  />
+  <style>
+    :root {
+      --bg: #f4f4f5;
+      --bg-dark: #18181b;
+      --header: #e4e4e7;
+      --header-dark: #27272a;
+    }
+  </style>
+
+  
+
+  <!-- Dark Icon -->
+  <link
+    rel="preload"
+    as="image"
+    href="https://amiraref.ir/icons/theme.svg"
+  />
+
+  <!-- Math -->
+  
+  <!---->
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css"
+  crossorigin="anonymous"
+/>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"
+  crossorigin="anonymous"
+></script>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js"
+  crossorigin="anonymous"
+></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () =>
+    renderMathInElement(document.body, {
+      // customised options
+      // • auto-render specific keys, e.g.:
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+      ],
+      // • rendering keys, e.g.:
+      throwOnError: false,
+    }),
+  );
+</script>
+
+  <!---->
+  
+  <!---->
+
+  <!-- Mermaid -->
+  
+  <!---->
+
+  <!-- Favicon -->
+  <link rel="icon" href="https://amiraref.ir/favicon.ico" />
+  <link
+    rel="apple-touch-icon"
+    href="https://amiraref.ir/apple-touch-icon.png"
+  />
+
+  <!-- Feeds -->
+  
+
+  <!-- Canonical -->
+  <link
+    rel="canonical"
+    href="https:&#x2F;&#x2F;amiraref.ir&#x2F;blog&#x2F;dotfiles&#x2F;"
+  />
+</head>
+
+  <body class="text-black duration-200 ease-out dark:text-white">
+    <header
+  class="header fixed top-0 z-40 mx-auto min-h-[3.5rem] w-full"
+>
+  <div class="mx-auto w-full max-w-4xl p-3 lg:flex lg:justify-between">
+    <div class="flex justify-between">
+      <div class="flex items-center">
+        <a class="text-2xl font-semibold" href="https://amiraref.ir">Amir Aref&#x27;s Blog</a>
+        <div
+          class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer text-[0] [background:url(./icons/theme.svg)_left_center/cover_no-repeat] dark:invert dark:[background-position:right]"
+          role="button"
+          aria-label="Dark"
+        ></div>
+      </div>
+      
+      <div
+        class="btn-menu relative z-50 flex h-8 w-8 shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+        role="button"
+        aria-label="Menu"
+      ></div>
+      
+    </div>
+    <script>
+      // base
+      const htmlClass = document.documentElement.classList;
+      setTimeout(() => {
+        htmlClass.remove("not-ready");
+      }, 10);
+
+      // mobile menu
+      const btnMenu = document.querySelector(".btn-menu");
+      btnMenu?.addEventListener("click", () => {
+        htmlClass.toggle("open");
+      });
+
+      // dark theme
+      const setDark = (isDark) => {
+        if (isDark) {
+          document.body.dispatchEvent(new CustomEvent("set-theme", { detail: "dark" }));
+          htmlClass.add("dark");
+        } else {
+          document.body.dispatchEvent(new CustomEvent("set-theme", { detail: "light" }));
+          htmlClass.remove("dark");
+        }
+        localStorage.setItem("dark", isDark);
+      };
+
+      // init
+      const darkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+      if (htmlClass.contains("dark")) {
+        setDark(true);
+      } else {
+        const darkVal = localStorage.getItem("dark");
+        setDark(darkVal ? darkVal === "true" : darkScheme.matches);
+      }
+
+      // listen system
+      darkScheme.addEventListener("change", (event) => {
+        setDark(event.matches);
+      });
+
+      // manual switch
+      const btnDark = document.querySelector(".btn-dark");
+      btnDark.addEventListener("click", () => {
+        setDark(localStorage.getItem("dark") !== "true");
+      });
+    </script>
+    
+    <nav class="flex w-full items-center lg:w-auto">
+      <ul
+        class="nav-wrapper flex w-full flex-col py-2 lg:w-auto lg:flex-row lg:self-center lg:py-0"
+      >
+        
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://amiraref.ir/blog/fa"
+            >Blog (Fa)</a
+          >
+        </li>
+        
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://amiraref.ir/blog"
+            >Blog</a
+          >
+        </li>
+        
+        <li>
+          <a
+            class="primary-link block py-2 text-center text-lg font-medium lg:px-3 lg:py-0"
+            href="https://amiraref.ir/tags"
+            >Tags</a
+          >
+        </li>
+        
+      </ul>
+      <!-- Header Nav inject -->
+      
+    </nav>
+    
+  </div>
+</header>
+
+
+    <main
+      class="prose prose-neutral relative mx-auto min-h-[calc(100%-9rem)] max-w-4xl break-words px-4 pb-16 pt-32 dark:prose-invert"
+    >
+      
+<article>
+  <!-- Page Start inject -->
+  
+
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">Tracking dotfiles, What is it and Why ?</h1>
+    <div class="text-sm antialiased opacity-60">
+  
+  <time>2024-05-14</time>
+  <span class="mx-1">&middot;</span>
+  <span>4min</span>
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  
+  <span class="mx-1">&middot;</span>
+  <span>amiraref</span>
+  
+  <!-- Page Info inject -->
+  
+</div>
+
+  </header>
+
+  
+
+  <!-- TOC -->
+  <!---->
+<div class="block-bg mb-12 flex rounded-lg p-2 text-lg">
+  <details>
+    <summary class="cursor-pointer py-1 pl-4">
+      <span>Table of Contents</span>
+    </summary>
+    <div class="px-2">
+      <ul>
+        
+        <li>
+          <a class="no-underline hover:underline" href="https://amiraref.ir/blog/dotfiles/#what-are-the-dotfiles"
+            >What are the dotfiles ?</a
+          >
+          
+        </li>
+        
+        <li>
+          <a class="no-underline hover:underline" href="https://amiraref.ir/blog/dotfiles/#why-the-dotfiles-are-important"
+            >Why the dotfiles are important ?</a
+          >
+          
+          <ul>
+            
+            <li>
+              <a class="no-underline hover:underline" href="https://amiraref.ir/blog/dotfiles/#benefits-of-tracking-the-dotfiles"
+                >Benefits of Tracking the dotfiles</a
+              >
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+        <li>
+          <a class="no-underline hover:underline" href="https://amiraref.ir/blog/dotfiles/#how-keep-and-track-the-dotfiles"
+            >How Keep and track the dotfiles ?</a
+          >
+          
+          <ul>
+            
+            <li>
+              <a class="no-underline hover:underline" href="https://amiraref.ir/blog/dotfiles/#track-your-dotfiles-using-the-stow"
+                >Track your dotfiles using the stow</a
+              >
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+      </ul>
+    </div>
+  </details>
+</div>
+
+<!---->
+
+  <!-- Content -->
+  <section><h1 id="what-are-the-dotfiles">What are the dotfiles ?</h1>
+<p>Hi, in this article I want to explain and talk about the <strong>dotfiles</strong>.
+The first question is what are the dotfiles ?
+It's very clear, the files that their names starts with a dot <code>.</code> which (in most of operating systems) is a <strong>hidden</strong> file.</p>
+<h1 id="why-the-dotfiles-are-important">Why the dotfiles are important ?</h1>
+<p>If you are a user of a Unix-like operating system (like GNU/LINUX distributions, macOS, etc), the dotfiles are too important for you.
+Most of the applications use their specific dotfile to store their configuration.
+For example have you ever used the <strong>vim</strong> editor? The vim editor loads it's configuration from the <code>.vimrc</code> which is located in your home directory (i.e. <code>~/.vimrc</code>).
+If you explore on your home directory and the <code>~/.config/</code> directory, you will probably see many dotfiles from different software (see hidden files with command : <code>ls -a</code>) such as <code>.bashrc</code>, <code>.zshrc</code>, <code>.gitconfig</code>, etc.</p>
+<h2 id="benefits-of-tracking-the-dotfiles">Benefits of Tracking the dotfiles</h2>
+<p>After some time that you have struggled with many of software configurations to make them customized for your likings (specially in Linux), you probably try to <strong>keep</strong> your dotfiles somewhere to use them in the future or to use on the other machines.
+So after you save your specific dotfiles, you just need to copy them in your new machine and enjoy working with the same configuration and customization that you have had on the other machine.</p>
+<h1 id="how-keep-and-track-the-dotfiles">How Keep and track the dotfiles ?</h1>
+<p>One of the best ways to store the dotfiles is using by <strong>Git</strong>, but managing your dotfiles using git is a little different that tracking your project's source code.
+In the past and until recently, I was using an old method to store my dotfiles with git that was not too optimized. In this old method you have to create a <code>bare</code> repository and use the alias.
+I don't want to explain this method here and my reason for that is that in my experience I found this method is not too optimized with <strong>shell ta autocompletion</strong>, and most of the times I had problems with that, but if you interested in that, you can find it with the <strong><em>&quot;bare repository and alias method&quot;</em></strong> in links that I will put below.</p>
+<h2 id="track-your-dotfiles-using-the-stow">Track your dotfiles using the stow</h2>
+<p>There is a useful program named <strong><a href="https://www.gnu.org/software/stow/">stow</a></strong> which is a symlink farm manager. The stow has many usages but it can provide a structured approach to store your dotfiles.</p>
+<ol>
+<li>first, make sure the <strong>stow</strong> is installed on your machine, in most of Linux distros it's already installed, but if not, install it using your package manager</li>
+<li>then you should create a directory to store your dotfiles in your <strong>home directory</strong>, in this case we name it <code>.dotfiles</code></li>
+</ol>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">mkdir ~</span><span>/.dotfiles
+</span><span style="color:#96b5b4;">cd </span><span style="color:#bf616a;">~</span><span>/.dotfiles
+</span></code></pre>
+<ol start="3">
+<li>next, you should create your dotfiles in subdirectory of this directory (or move them to it).
+Let's imagine we have <code>~/.vimrc</code> file in the home directory, you should move it to a new folder on <code>.dotfiles</code> directory :</li>
+</ol>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">mkdir</span><span> vim
+</span><span style="color:#bf616a;">mv ~</span><span>/.vimrc </span><span style="color:#bf616a;">~</span><span>/.dotfiles/vim/
+</span></code></pre>
+ <!---->
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-[var(--admonition-bg)]"
+  style="--admonition-bg: rgba(0, 191, 165, 0.1)"
+>
+  <div class="flex items-center rounded-t-lg bg-[var(--admonition-bg)] p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(./icons/tip.svg)"
+    >
+      tip
+    </div>
+    <span><strong>Tip</strong></span>
+  </div>
+  <div class="px-4"><p>The name of subdirectory can be anything you want, but it's better to use a related name to make the files structure more clear.</p>
+</div>
+</div>
+<p>You should consider that the <strong>stow</strong> will follow the same folder structure that is placed in home directory.
+For example, the neovim's config folder that is typically placed in <code>~/.config/nvim/</code> would be like : <code>~/.dotfiles/nvim/.config/nvim/</code>.
+Do the same thing for all of your dotfiles.</p>
+<p>The following is the structure of my <code>.dotfiles</code> directory (<a href="https://github.com/AmirAref/dotfiles/">my dotfiles repository</a>):</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>.dotfiles/
+</span><span>├── fish
+</span><span>│   └── .config
+</span><span>│       └── fish
+</span><span>│           ├── config.fish
+</span><span>├── git
+</span><span>│   ├── .gitconfig
+</span><span>├── kitty
+</span><span>│   └── .config
+</span><span>│       └── kitty
+</span><span>│           └── kitty.conf
+</span><span>├── nvim
+</span><span>│   └── .config
+</span><span>│       └── nvim
+</span><span>│           ├── .gitignore
+</span><span>│           ├── init.lua
+</span><span>│           ├── lazy-lock.json
+</span><span>│           ├── lua
+</span><span>│           ├── .stylua.toml
+</span><span>│           └── TODO.md
+</span><span>├── tmux
+</span><span>│   ├── .tmux
+</span><span>│   │   └── plugins
+</span><span>│   │       └── tpm
+</span><span>│   └── .tmux.conf
+</span><span>├── vim
+</span><span>│   ├── .vim
+</span><span>│   │   └── coc-settings.json
+</span><span>│   └── .vimrc
+</span><span>└── yt-dlp
+</span><span>    └── .config
+</span><span>        └── yt-dlp
+</span><span>            └── config
+</span></code></pre>
+<ol start="4">
+<li>run the following command to make symlinks using stow (put your own folders' names) :</li>
+</ol>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">stow</span><span> git vim nvim kitty
+</span></code></pre>
+<p>Now if you go to your home directory, you'll see the <strong>symlinks</strong> have been created :</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">➜</span><span> ls</span><span style="color:#bf616a;"> -al</span><span> .vimrc
+</span><span style="color:#bf616a;">20</span><span> May  6 00:32 .vimrc -&gt; .dotfiles/vim/.vimrc
+</span></code></pre>
+<ol start="5">
+<li>finally, initialize git in your <code>.dotfiles</code> folder, and then create a commit and push it to your online git repository :</li>
+</ol>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#96b5b4;">cd </span><span style="color:#bf616a;">~</span><span>/.dotfiles/
+</span><span style="color:#bf616a;">git</span><span> init
+</span><span style="color:#bf616a;">git</span><span> commit</span><span style="color:#bf616a;"> -m </span><span>&quot;</span><span style="color:#a3be8c;">Initial Commit</span><span>&quot;
+</span><span style="color:#bf616a;">git</span><span> push origin master
+</span></code></pre>
+ <!---->
+
+
+<div
+  class="my-4 flex flex-col rounded-lg bg-[var(--admonition-bg)]"
+  style="--admonition-bg: rgba(83, 211, 230, 0.1)"
+>
+  <div class="flex items-center rounded-t-lg bg-[var(--admonition-bg)] p-1">
+    <div
+      class="mx-2 h-4 w-4 text-[0] [background:var(--url)_center_center_no-repeat] dark:invert"
+      style="--url: url(./icons/info.svg)"
+    >
+      info
+    </div>
+    <span><strong>Note</strong></span>
+  </div>
+  <div class="px-4"><p>If you want to delete the symlinks for a folder, just use the <code>stow -D folder_name</code> command in the <code>.dotfiles</code> directory.</p>
+</div>
+</div>
+<br>
+<p>Related links:</p>
+<ul>
+<li><a href="https://wiki.archlinux.org/title/Dotfiles">Dotfiles - Arch Wiki</a></li>
+<li><a href="https://www.gnu.org/software/stow/">Stow - Gnu</a></li>
+<li><a href="https://github.com/amiraref/dotfiles">My Dotfiles</a></li>
+</ul>
+</section>
+
+  <hr />
+
+  <!-- Post Taxonomies -->
+  
+<footer class="mt-12 flex flex-col">
+  <!---->
+  <!---->
+  <!---->
+  <!---->
+  
+  <div class="mb-2 flex flex-wrap">
+    <span class="block-bg mb-1.5 mr-1.5 rounded-lg px-5 py-1.5">Tags </span>
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://amiraref.ir/tags/linux/"
+      >linux</a
+    >
+    
+    <a
+      class="block-bg block-hover mb-1.5 mr-1.5 rounded-lg px-5 py-1.5 no-underline"
+      href="https://amiraref.ir/tags/unix/"
+      >unix</a
+    >
+    
+  </div>
+  
+</footer>
+
+<!---->
+
+  <!-- Post Nav -->
+  
+<!---->
+
+  <!-- Comment -->
+  
+
+  <!-- Page End inject -->
+  
+</article>
+
+    </main>
+
+    <footer class="mx-auto flex max-w-3xl flex-wrap items-center px-8 py-4 text-sm opacity-60">
+  <div class="mr-auto basis-full lg:basis-1/2">
+    <!---->
+    <!---->
+    &copy; 2024 - 2025<!---->
+    
+    <a class="link" href="https://amiraref.ir">
+      amiraref
+    </a>
+     |<!---->
+    <!---->
+    <a class="link" href="https:&#x2F;&#x2F;creativecommons.org&#x2F;licenses&#x2F;by-nc-sa&#x2F;4.0&#x2F;" rel="noopener" target="_blank">
+      CC BY-NC-SA 4.0
+    </a>
+    <!---->
+    
+  </div>
+  <div class="flex basis-full lg:basis-1/2 lg:justify-end">
+    <a class="link mr-6 lg:ml-6" href="https://www.getzola.org/" rel="noopener" target="_blank">
+      Powered by Zola
+    </a>
+    <a class="link" href="https://github.com/st1020/kita" rel="noopener" target="_blank">✎ Kita</a>
+  </div>
+  <!-- Footer inject -->
+  
+</footer>
+
+  </body>
+</html>
